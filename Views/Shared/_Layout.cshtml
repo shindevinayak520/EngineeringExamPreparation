@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EngineeringExamPreparation</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/EngineeringExamPreparation.styles.css" asp-append-version="true" />
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><section class="logo">
+                        <video src="Video/smoke.mp4" autoplay muted loop></video>
+                    <h1>
+                        <span>E</span>
+                        <span>N</span>
+                        <span>G</span>
+                        <span>G</span>
+                        <span> </span>
+                        <span>E</span>
+                        <span>X</span>
+                        <span>A</span>
+                        <span>M</span>
+                        <span> </span>
+                        <span>P</span>
+                        <span>R</span>
+                        <span>E</span>
+                        <span>P</span>
+                    </h1>
+                </section></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="btn btn-primary btn-group-sm" href="/">Home</a>
+                        </li>
+                        <!-- Branch Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="btn btn-primary btn-group-sm" href="#" id="branchDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Branch
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="branchDropdown">
+                                <li><a class="dropdown-item" href="/Branches">Branch List</a></li>
+                                <li><a class="dropdown-item" href="/Branches/Create">Create New Branch</a></li>
+                                <!-- Add more items as needed -->
+                            </ul>
+                        </li>
+                        <!-- Subject Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="btn btn-primary btn-group-sm" href="#" id="subjectDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Subject
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="subjectDropdown">
+                                <li><a class="dropdown-item" href="/Subjects">Subjects List</a></li>
+                                <li><a class="dropdown-item" href="/Subjects/Create">Add New Subject</a></li>
+                                <!-- Add more items as needed -->
+                            </ul>
+                        </li>
+                        <!-- Chapter Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="btn btn-primary btn-group-sm" href="#" id="chapterDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Chapter
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="chapterDropdown">
+                                <li><a class="dropdown-item" href="/Chapters">Chapters List</a></li>
+                                <li><a class="dropdown-item" href="/Chapters/Create">Create New Chapter</a></li>
+                                <!-- Add more items as needed -->
+                            </ul>
+                        </li>
+                        <!-- Question Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="btn btn-primary btn-group-sm" href="#" id="questionDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                 Question 
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="questionDropdown">
+                                <li><a class="dropdown-item" href="/Questions">Questions List</a></li>
+                                <li><a class="dropdown-item" href="/Questions/Create">Add New Questions</a></li>
+                            </ul>
+                        </li>
+                        <!-- Tests Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="btn btn-primary btn-group-sm" href="#" id="testDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Tests
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="testDropdown">
+                                <li><a class="dropdown-item" href="/McqTest">Test Question List</a></li>
+                                <li><a class="dropdown-item" href="/McqTest/Create">Create New Test</a></li>
+                            </ul>
+                        </li>
+                        <!-- Add more navigation links for other controllers/views -->
+                    </ul>
+                </div>
+                    <partial name="_LoginPartial" />
+               
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - EngineeringExamPreparation - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

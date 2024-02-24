@@ -1,0 +1,28 @@
+﻿@model EngineeringExamPreparation.Models.Branch
+
+@{
+    ViewData["Title"] = "Add Branch with Subjects";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form  id="branchForm" asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Name" class="control-label"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+@section Scripts {
+    <script>
+        $('#branchForm').submit(function (event) {
+            var submitForm = confirm('Are you sure you want to proceed to add subjects?');
+            if (!submitForm) {
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+    </script>
+}

@@ -1,0 +1,62 @@
+﻿@model List<Subject>
+
+@{
+}
+<h2>Add Multiple Subjects</h2>
+
+<form asp-action="AddMultiple" asp-route-branchId="@ViewBag.BranchId" method="post">
+    <div class="form-group">
+        <label class="control-label">Enter number of subjects</label>
+        <input id="subjectCount" type="number" name="subjectCount" />
+    </div>
+
+        @for (var i = 0; i < 5; i++)
+    {
+        <div class="form-group">
+            <label class="control-label">Subject @(i + 1)</label>
+            <input type="text" name="[@i].SubjectName" class="form-control" />
+            <span class="text-danger"></span>
+        </div>
+    }
+
+     <div id="subjectsContainer"> </div>
+   
+    <button type="button" onclick="addSubjectFields()" class="btn btn-primary">Add Subjects</button>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
+
+
+@section Scripts {
+ 
+        <script>
+            function addSubjectFields() {
+            var numOfSubjects = document.getElementById('subjectCount').value;
+                var container = document.getElementById('subjectsContainer');
+
+                for (var i = 1; i <= numOfSubjects; i++) {
+
+                    var div = document.createElement('div');
+                    div.className = 'form-group';
+
+                    var label = document.createElement('label');
+                    label.innerHTML = 'Subject ' + i;
+                    label.className = 'control-label';
+
+                    var input = document.createElement('input');
+                    input.type = 'text';
+                    input.name = '[' + i + '].SubjectName';
+                    input.className = 'form-control';
+
+                    var span = document.createElement('span');
+                    span.className = 'text-danger';
+
+                    div.appendChild(label);
+                    div.appendChild(input);
+                    div.appendChild(span);
+
+                    container.appendChild(div);
+                }
+            }
+    </script>
+   
+}

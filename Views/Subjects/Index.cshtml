@@ -1,0 +1,51 @@
+﻿@model IEnumerable<EngineeringExamPreparation.Models.Subject>
+
+@{
+    ViewData["Title"] = "Index";
+    var i = 0;
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SubjectId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubjectName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Branch.Name)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubjectId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubjectName)
+            </td>
+            <td>
+                @(item.Branch?.Name ?? "No Branch")
+            </td>
+            <td>
+                <a class="btn btn-info btn-sm" asp-controller="Chapters" asp-action="AddMultiple" asp-route-subjectId="@item.SubjectId">Add Chapters <span class="badge bg-danger">(@item.Chapters.Count)</span> </a>
+                <a class="btn btn-success btn-sm" asp-action="Edit" asp-route-id="@item.SubjectId">Edit</a>
+                <a class="btn btn-primary btn-sm" asp-action="Details" asp-route-id="@item.SubjectId">Details</a>
+                <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.SubjectId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

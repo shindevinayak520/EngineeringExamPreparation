@@ -1,0 +1,97 @@
+﻿@model EngineeringExamPreparation.Models.Subject
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Subject</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="BranchId" class="control-label"></label>
+                @if (ViewBag.Branches != null)
+                {
+                    <select asp-for="BranchId" class="form-control" asp-items="new SelectList(ViewBag.Branches, nameof(Branch.Id), nameof(Branch.Name))"></select>
+                }
+            </div>
+
+            <!-- Subjects -->
+            <div id="subjectsContainer">
+                <!-- Initial subject fields -->
+                <div class="subject-group">
+                    <div class="form-group">
+                        <label for="Branch.Subjects[0].SubjectName" class="control-label">Subject 1</label>
+                        <input name="Branch.Subjects[0].SubjectName" class="form-control" />
+                        <input type="hidden" name="Branch.Subjects[0].BranchId" value="@Model.BranchId" />
+                        <span asp-validation-for="Branch.Subjects[0].SubjectName" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="form-group">
+                 <label for="numOfSubjects" class="control-label">Number of Subjects</label>
+                 <input type="number" id="numOfSubjects" name="numOfSubjects" class="form-control" />
+            </div>
+
+                 <button type="button" class="btn btn-primary" onclick="addSubjectFields()">Add Subjects</button>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+        <script>
+            function addSubjectFields() {
+                var numOfSubjects = document.getElementById('numOfSubjects').value;
+                var container = document.getElementById('subjectsContainer');
+
+                for (var i = 1; i <= numOfSubjects; i++) {
+
+                    var div = document.createElement('div');
+                    div.className = 'form-group';
+
+                    var label = document.createElement('label');
+                    label.innerHTML = 'Subject ' + i;
+                    label.className = 'control-label';
+
+                    var input = document.createElement('input');
+                    input.name = 'Subjects[' + i + '].SubjectName';
+                    input.className = 'form-control';
+
+                    var inputBranchId = document.createElement('input');
+                    inputBranchId.type = 'hidden';
+                    inputBranchId.name = 'Subjects[' + i + '].BranchId';
+                    inputBranchId.value = '@Model.BranchId';
+
+
+                    var span = document.createElement('span');
+                    span.setAttribute('data-valmsg-for', 'Subjects[' + i + '].SubjectName');
+                    span.setAttribute('data-valmsg-replace', 'true');
+                    span.className = 'text-danger';
+
+                    div.appendChild(label);
+                    div.appendChild(input);
+                    div.appendChild(span);
+
+                    container.appendChild(div);
+                }
+            }
+    </script>
+
+    }

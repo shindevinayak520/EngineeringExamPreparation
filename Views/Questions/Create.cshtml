@@ -1,0 +1,43 @@
+﻿@model EngineeringExamPreparation.Models.Question
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create Question</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="QuestionText">Question Text</label>
+        <input asp-for="QuestionText" class="form-control" />
+        <span asp-validation-for="QuestionText" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ChapterId">Chapter</label>
+        <select asp-for="ChapterId" asp-items="new SelectList(ViewBag.Chapters, nameof(Chapter.ChapterId), nameof(Chapter.ChapterName))" class="form-control"></select>
+        <span asp-validation-for="ChapterId" class="text-danger"></span>
+    </div>
+    
+    <h4>Choices</h4>
+    <div class="form-group">
+        @for (var i = 0; i < 4; i++)
+        {
+            <div class="choice-group">
+                <label>Choice @i</label>
+                <input type="text" name="Choices[@i].Text" class="form-control" />
+                <input type="checkbox" name="Choices[@i].IsCorrect" value="true" />
+                <input type="hidden" name="Choices[@i].IsCorrect" value="false" />
+            </div>
+        }
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

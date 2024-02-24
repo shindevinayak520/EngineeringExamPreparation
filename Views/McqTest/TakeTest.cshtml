@@ -1,0 +1,25 @@
+﻿@model List<TestQuestion>
+
+<h2>MCQ Test</h2>
+
+<form asp-action="SubmitTest" method="post">
+    @foreach (var question in Model)
+    {
+        <div class="question">
+            <h4>@question.Text</h4>
+            <ul>
+                @foreach (var choice in question.TestChoices)
+                {
+                    <li>
+                        <input type="hidden" name="questions[@Model.IndexOf(question)].Id" value="@question.Id" />
+                        <input type="hidden" name="questions[@Model.IndexOf(question)].TestChoices[@question.TestChoices.IndexOf(choice)].Id" value="@choice.Id" />
+                        <input type="checkbox" name="questions[@Model.IndexOf(question)].TestChoices[@question.TestChoices.IndexOf(choice)].Selected" value="true" />
+                        <label>@choice.Text</label>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary">Submit Test</button>
+</form>

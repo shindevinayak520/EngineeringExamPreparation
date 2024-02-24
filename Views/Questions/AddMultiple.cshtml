@@ -1,0 +1,27 @@
+﻿@model List<Question>
+
+@{
+
+}
+<h2>Add Multiple Questions</h2>
+
+<form asp-action="AddMultiple" asp-route-chapterId="@ViewBag.ChapterId" method="post">
+    @for (var i = 0; i < 2; i++)
+    {
+            <div class="form-group">
+                <label class="control-label">Question @(i + 1)</label>
+            <input type="text" name="[@i].QuestionText" class="form-control" />
+                <span class="text-danger"></span>
+            </div>
+        @for (var j = 0; j < 4; j++)
+        {
+            <div class="form-group">
+                <label class="control-label">Choice @(j + 1)</label>
+                <input type="text" name="[@i].Choices[@j].Text" class="form-control" />
+                <span class="text-danger"></span>
+            </div>
+        }
+    }
+
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>
