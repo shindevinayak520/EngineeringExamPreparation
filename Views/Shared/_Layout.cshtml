@@ -11,10 +11,10 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-white border-bottom box-shadow mb-3 container-fluid" >
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><section class="logo">
-                        <video src="Video/smoke.mp4" autoplay muted loop></video>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <section class="logo">
                     <h1>
                         <span>E</span>
                         <span>N</span>
@@ -36,7 +36,7 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="collapse navbar-collapse gap-2" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="btn btn-primary btn-group-sm" href="/">Home</a>
@@ -97,12 +97,15 @@
                         <!-- Add more navigation links for other controllers/views -->
                     </ul>
                 </div>
+                <div class="collapse navbar-collapse gap-2">
                     <partial name="_LoginPartial" />
+                </div>
+                    
                
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container-fluid">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -110,7 +113,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - EngineeringExamPreparation - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

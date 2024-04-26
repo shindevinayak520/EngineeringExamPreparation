@@ -1,25 +1,50 @@
 ﻿@model List<TestQuestion>
 
-<h2>MCQ Test</h2>
+@{
+    int i = 1;
+}
 
-<form asp-action="SubmitTest" method="post">
-    @foreach (var question in Model)
-    {
-        <div class="question">
-            <h4>@question.Text</h4>
-            <ul>
-                @foreach (var choice in question.TestChoices)
+<div class="container-fluid">
+    <div class="d-flex flex-row">
+        <div class="container container-fluid">
+            <form asp-action="SubmitTest" method="post">
+                @foreach (var question in Model)
                 {
-                    <li>
-                        <input type="hidden" name="questions[@Model.IndexOf(question)].Id" value="@question.Id" />
-                        <input type="hidden" name="questions[@Model.IndexOf(question)].TestChoices[@question.TestChoices.IndexOf(choice)].Id" value="@choice.Id" />
-                        <input type="checkbox" name="questions[@Model.IndexOf(question)].TestChoices[@question.TestChoices.IndexOf(choice)].Selected" value="true" />
-                        <label>@choice.Text</label>
-                    </li>
+                    <div id="question-@i" class="container-fluid question notVisit" data-question-id="question-@i">
+                        <h4 class="text-wrap"> Q @i) @question.Text</h4>
+                        <input type="hidden" name="questions[@Model.IndexOf(question)].Text" value="@question.Text" />
+                        <ol type="A">
+                            @foreach (var choice in question.TestChoices)
+                            {
+                                <li>
+                                    <input type="hidden" name="questions[@Model.IndexOf(question)].Id" value="@question.Id" />
+                                    <input type="hidden" name="questions[@Model.IndexOf(question)].TestChoices[@question.TestChoices.IndexOf(choice)].Text" value="@choice.Text" />
+                                    <input type="hidden" name="questions[@Model.IndexOf(question)].TestChoices[@question.TestChoices.IndexOf(choice)].Id" value="@choice.Id" />
+                                    <input type="radio" name="questions[@Model.IndexOf(question)].TestChoices[@question.TestChoices.IndexOf(choice)].Selected" value="true" />
+                                    <label>@choice.Text</label>
+                                </li>
+                            }
+                        </ol>
+                        <div class="impBtn">
+                            <a class="btn btn-info markReviewBtn" data-question-id="question-@i"> Mark for Review </a>
+                            <a class="btn btn-info ansSaved" data-question-id="question-@i">Save</a>
+                        </div>
+                    </div>
+                    i++;
                 }
-            </ul>
-        </div>
-    }
 
-    <button type="submit" class="btn btn-primary">Submit Test</button>
-</form>
+            </form>
+        </div>
+
+        <div class="question-overview">
+            @Html.Partial("QuestionOverview", Model)
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary submit-test">End Test</button>
+        </div>
+
+    </div>
+</div>
+
+

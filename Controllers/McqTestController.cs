@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using static EngineeringExamPreparation.Models.TestResultViewModel;
 
 namespace EngineeringExamPreparation.Controllers
 {
@@ -96,6 +97,7 @@ namespace EngineeringExamPreparation.Controllers
         public IActionResult TakeTest(int testId)
         {
             var questions = dbcontext.TestQuestions.Include(c=>c.TestChoices).Where(t=>t.TestId==testId).ToList();
+
             return View(questions);
         }
 
@@ -103,38 +105,80 @@ namespace EngineeringExamPreparation.Controllers
         [HttpPost]
         public IActionResult SubmitTest(List<TestQuestion> questions)
         {
-            // Calculate the result
-            int totalQuestions = questions.Count;
-            int correctAnswers = 0;
-            
-            foreach (var question in questions)
+            // Calculate the result 
+            //var testQuestions = dbcontext.TestQuestions.Where(t=>t.TestId == testId).ToList();
+
+            var viewModel = PrepareTestResultViewModel(questions);
+            return View("Result", viewModel);
+        }
+
+
+        // Method to prepare the test result view model
+        private TestResultViewModel PrepareTestResultViewModel(List<TestQuestion> submittedTest)
+        {
+            // You need to implement this method to calculate the test result and prepare the view model
+            // Here's a simplified example assuming TestQuestion has a property SelectedChoiceId
+            // You would replace it with your actual logic
+
+            int score = 0;
+            int questionCount = submittedTest.Count();
+            List<TestResultQuestionViewModel> questions = new List<TestResultQuestionViewModel>();
+
+            foreach (var question in submittedTest)
             {
-                var selectedChoices = question.TestChoices.Where(c => c.Selected);
-                var correctAnswer = dbcontext.TestChoices.Where(t=>t.TestQuestionId==question.Id && t.IsCorrect);
-                // Ensure there is exactly one selected choice for each question
-                if (selectedChoices.Count() == 1 && selectedChoices.First().Id == correctAnswer.First().Id)
+                var correctAnswer = dbcontext.TestChoices.Where(c=>c.TestQuestionId == question.Id && c.IsCorrect).Select(c=>c.Id).FirstOrDefault();
+             
+                // Example logic: If the selected choice is correct, increase the score
+                bool isCorrect = CheckIfCorrect(correctAnswer,question);
+                if (isCorrect)
                 {
-                    correctAnswers++;
+                    score++;
                 }
+
+                    question.TestChoices.Find(t => t.Id == correctAnswer).IsCorrect = true;
+
+                // Create view model for each question
+                TestResultQuestionViewModel questionViewModel = new TestResultQuestionViewModel
+                {
+                    Text = question.Text,
+                    SelectedChoiceText = GetSelectedChoiceText(question),
+                    CorrectChoiceText = GetCorrectChoiceText(question),
+                    testChoices = question.TestChoices
+                };
+
+                questions.Add(questionViewModel);
             }
 
-            var result = new TestResult();
-            result.TotalQuestions = totalQuestions;
-            result.MarksObtained = correctAnswers;
-            return View("Result", result);
+            return new TestResultViewModel
+            {
+                Score = score,
+                QuestionCount = questionCount,
+                Questions = questions
+            };
         }
 
-
-        // GET: /Test/Result
-        public IActionResult Result(TestResult result)
+        // Example methods for getting selected and correct choice text
+        private bool CheckIfCorrect(int correctAnswer, TestQuestion question)
         {
-            var testResult = new TestResult();
-            // Retrieve the result from ViewBag and display it in the view
-            testResult.TotalQuestions = result.TotalQuestions;
-            testResult.MarksObtained = result.MarksObtained;
-            return View(testResult);
+                var selectedChoices = question.TestChoices.Where(t => t.Selected).Select(t=>t.Id).SingleOrDefault();
+                // Ensure there is exactly one selected choice for each question
+
+             return (selectedChoices == correctAnswer) ? true : false;
+            
         }
 
+        private string GetSelectedChoiceText(TestQuestion question)
+        {
+
+            return question.TestChoices.Where(c => c.Selected).Select(t => t.Text).SingleOrDefault(); // Replace with actual text
+        }
+
+        private string GetCorrectChoiceText(TestQuestion question)
+        {
+            // Example logic to get the text of the correct choice
+            // You would replace it with your actual logic
+            return question?.TestChoices?.Where(c => c.IsCorrect)?.Select(c => c.Text).Single(); // Replace with actual text
+        }
 
 
 

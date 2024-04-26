@@ -6,22 +6,44 @@
 <h2>Add Multiple Questions</h2>
 
 <form asp-action="AddMultiple" asp-route-chapterId="@ViewBag.ChapterId" method="post">
-    @for (var i = 0; i < 2; i++)
-    {
-            <div class="form-group">
-                <label class="control-label">Question @(i + 1)</label>
-            <input type="text" name="[@i].QuestionText" class="form-control" />
-                <span class="text-danger"></span>
-            </div>
-        @for (var j = 0; j < 4; j++)
+    <table>
+
+    @for (var i = 0; i < 4; i++)
         {
-            <div class="form-group">
-                <label class="control-label">Choice @(j + 1)</label>
-                <input type="text" name="[@i].Choices[@j].Text" class="form-control" />
-                <span class="text-danger"></span>
-            </div>
-        }
+            <tr>
+                <div class="form-group">
+                <td>
+                   <label class="control-label">Question @(i + 1)</label>
+                </td>
+                <td>
+                    <input type="text" name="[@i].QuestionText" class="form-control" />
+                    <span class="text-danger"></span>
+                </td>
+                            
+                </div>
+            </tr>
+
+            <tr>
+                <div class="form-group">
+                <td>
+                    <label class="control-label">Choices</label>
+                </td>
+                @for(var j=0; j < 4; j++)
+                {
+                <td>
+                    <input type="text" name="[@i].Choices[@j].Text" class="form-control" />
+                    <span class="text-danger"></span>
+                    <label>Correct</label>
+                    <input type="checkbox" name="[@i].Choices[@j].IsCorrect" value="true" />
+                    <input type="hidden" name="[@i].Choices[@j].IsCorrect" value="false" />
+                    <span class="text-danger"></span>
+                </td>
+                }
+                </div>
+            </tr>
     }
+
+    </table>
 
     <button type="submit" class="btn btn-primary">Save</button>
 </form>

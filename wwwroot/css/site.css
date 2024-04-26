@@ -143,3 +143,154 @@ h1 span:nth-child(13) {
 h1 span:nth-child(14) {
     animation-delay: 4s;
 }
+
+.correct-choice {
+    color: green;
+    font-weight: bold;
+}
+
+.select-choice {
+    color : red;
+    font-weight : bold;
+}
+
+.question-overview {
+    left: 75%;
+    top: 16%;
+    right:1%;
+    border: 3px solid;
+    height: auto;
+    width : auto;
+}
+
+.row-height{
+    height: 40px;
+}
+
+.col-width {
+    width : 35px;
+}
+
+.chquestion {
+    background-color : yellow;
+}
+
+.markedForReview
+{
+    display: flex;
+}
+
+.submit-test
+{
+    position: absolute;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    right: 14px;
+    bottom: 69px;
+}
+
+.markedForReview {
+    position: absolute;
+    justify-content: center;
+    width: auto;
+    height: auto;
+    left : 100px;
+    bottom: 69px;
+}
+
+.form-box {
+    width : 75%;
+    border : 1px solid black;
+}
+
+.navbar-nav
+{
+    gap: 8px;
+}
+
+.impBtn
+{
+    display: grid;
+    grid-auto-flow : column;
+    width: 40px;
+    align-items: start;
+    gap: 10px;
+    margin: 2px;
+}
+
+.markReviewBtn{
+    width: 139px;
+    color : white;
+}
+
+.ansSaved{
+    background-color: green;
+    color: white;
+}
+
+.polygon {
+    width: 37px;
+    height: 38px;
+    aspect-ratio: 1;
+    clip-path: polygon(79.39% 90.45%,20.61% 90.45%,2.45% 34.55%,50% 0%,97.55% 34.55%);
+}
+
+.triangle {
+    width: 37px;
+    height: 40px;
+    aspect-ratio: 1/cos(30deg);
+    clip-path: polygon(50% 0,100% 100%,0 100%);
+    border: double;
+    align-content: center;
+    background-color: burlywood;
+}
+
+div.triangle p {
+    margin-top: 9px;
+    height: 10px;
+    margin-left :1px;
+    color : black;
+    margin-bottom: 1rem;
+}
+
+.ansShape {
+    width: 37px;
+    height: 40px;
+    clip-path: polygon(0 40px,51px 40px,20px 0,calc(100% - 21px) 0,calc(100% - 49px) 40px,100% 40px,100% 100%,0 100%);
+}
+
+div.ansShape p {
+    margin-top: 12px;
+    margin-left: 1px;
+    color: white;
+    margin-bottom: 0rem;
+}
+
+.notAns {
+    width: 34px;
+    height: 36px;
+}
+
+.ansMark {
+    width: 37px;
+    height: 40px;
+}
+
+div.square p {
+    margin-top: 7px;
+    margin-left: 1px;
+    color: white;
+    margin-bottom: 0rem;
+}
+
+.icon-text {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 0 0 ;
+}
+
+.QuestionBody {
+    display: flex;
+    flex-direction: column;
+}

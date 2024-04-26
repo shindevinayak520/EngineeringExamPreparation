@@ -1,0 +1,68 @@
+﻿@model List<TestQuestion>
+
+@{
+    var notVisited = Model.Where(s => s.Status == "Not-Visited").Count();
+}
+<div class="container-fluid">
+    <div class="row m-1">
+        <div class="col-auto bg-success border text-light ansShape" id="markForSavedCount">
+             <p>0</p>
+            </div>
+            <div class="col-sm">
+               Answered
+            </div>
+        <div class="col-auto bg-danger border text-light notAns">
+             <p>0</p>
+            </div>
+            <div class="col text-wrap">
+                Not Answered
+            </div>
+    </div>
+    <div class="row m-1">
+        <div class="col-sm-auto border triangle notVisitedCount">
+            <p>@notVisited</p>
+            </div>
+            <div class="col text-wrap">
+                Not Visited
+            </div>
+        <div class="col-sm-auto bg-info border text-light polygon" id="markForReviewCount">
+             0
+            </div>
+        <div class="col text-wrap">
+                Marked for review
+            </div>
+    </div>
+    <div class="row m-1">
+        <div class="col-sm-auto bg-primary bg-gradient border text-light ansMark">
+            <p>0</p>
+        </div>
+        <div class="col text-wrap">
+            Anserwed & marked for review (will also be evaluated)
+        </div>
+    </div>
+
+    <div class="row bg-primary">
+        <div class="col text-center ">
+            General Aptitude
+        </div>
+    </div>
+    <div class="row chquestion">
+    <div class="row">
+        <div class="col text-center">
+            Choose a question
+        </div>
+    </div>
+
+    <div class="row m-1 p-0 container-fluid">
+    @for(int i=1; i<=Model.Count; i++)
+    {
+                <div class=" btn col-2 square rounded bg-white bg-gradient border m-2 p-0 text-center question-number question-@i" data-question-id="question-@i" onclick="changeBackground(this);">
+                @i
+            </div>
+    }
+    </div>
+
+    </div>
+</div>
+
+

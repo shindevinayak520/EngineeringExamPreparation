@@ -1,4 +1,6 @@
-﻿namespace EngineeringExamPreparation.Models
+﻿using System.ComponentModel;
+
+namespace EngineeringExamPreparation.Models
 {
     public class TestQuestion
     {
@@ -9,5 +11,8 @@
         public Test Test { get; set; }
 
         public List<TestChoice> TestChoices { get; set; }
+
+        [DefaultValue("Not-Submitted")]
+        public string Status { get; set; }
     }
 }

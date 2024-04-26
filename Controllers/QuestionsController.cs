@@ -23,7 +23,7 @@ namespace EngineeringExamPreparation.Controllers
 
         public IActionResult Index()
         {
-            var questions = _context.Questions.Include(q => q.Choices).ToList();
+            var questions = _context.Questions.Include(q => q.Choices).Include(c=>c.Chapter).ToList();
             return View(questions);
         }
 

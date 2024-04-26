@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>GATE Exam - Test</title>
+    <!-- Include CSS files for styling -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Add custom styles here */
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-dark bg-dark">
+        <span class="navbar-brand mb-0 h1">GATE Exam</span>
+        <!-- Add navigation links here -->
+    </nav>
+
+    <!-- Timer -->
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-6">
+                <!-- Display timer here -->
+                <h5>Time Remaining: <span id="timer">120:00</span></h5>
+            </div>
+            <div class="col-md-6">
+                <!-- Display progress bar here -->
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 25%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">25% Complete</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Question Panel -->
+    <div class="container mt-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Question 1</h5>
+                <p class="card-text">What is the capital of India?</p>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="question1" id="option1" value="option1">
+                    <label class="form-check-label" for="option1">New Delhi</label>
+                </div>
+                <!-- Add other options here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Next/Previous Buttons -->
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-6 text-left">
+                <button type="button" class="btn btn-primary">Previous</button>
+            </div>
+            <div class="col-md-6 text-right">
+                <button type="button" class="btn btn-primary">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-success">Submit Test</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include JavaScript files for functionality -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        // JavaScript code for timer functionality
+        // Example: Start the timer countdown
+    </script>
+</body>
+</html>

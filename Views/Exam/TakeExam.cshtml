@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GATE Exam UI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f1f1f1;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .question {
+            border-bottom: 1px solid #ccc;
+            padding: 20px 0;
+        }
+
+            .question h4 {
+                margin: 0 0 10px;
+            }
+
+        .choices {
+            list-style-type: none;
+            padding: 0;
+        }
+
+            .choices li {
+                margin-bottom: 10px;
+            }
+
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+
+            .submit-btn:hover {
+                background-color: #45a049;
+            }
+
+        .exam-score {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Mock GATE Exam</h2>
+        <form id="testForm" action="SubmitTest" method="post">
+            <div id="questionsContainer"></div>
+            <button type="submit" class="submit-btn">Submit Test</button>
+        </form>
+        <div id="examScore" class="exam-score"></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        // Sample test questions (replace with actual data)
+        var testQuestions = [
+            {
+                id: 1,
+                text: "Question 1?",
+                choices: ["Choice A", "Choice B", "Choice C", "Choice D"],
+                correctAnswer: "Choice A"
+            },
+            {
+                id: 2,
+                text: "Question 2?",
+                choices: ["Choice A", "Choice B", "Choice C", "Choice D"],
+                correctAnswer: "Choice B"
+            },
+            // Add more questions here...
+        ];
+
+        // Function to generate questions
+        function generateQuestions() {
+            var questionsContainer = $("#questionsContainer");
+            questionsContainer.empty();
+
+            testQuestions.forEach(function (question, index) {
+                var questionDiv = $("<div>").addClass("question");
+                var questionHeader = $("<h4>").text(question.text);
+                var choicesList = $("<ul>").addClass("choices");
+
+                question.choices.forEach(function (choice, choiceIndex) {
+                    var choiceItem = $("<li>");
+                    var choiceInput = $("<input>").attr({
+                        type: "radio",
+                        name: "question_" + question.id,
+                        id: "choice_" + question.id + "_" + choiceIndex,
+                        value: choice
+                    });
+                    var choiceLabel = $("<label>").attr("for", "choice_" + question.id + "_" + choiceIndex).text(choice);
+
+                    choiceItem.append(choiceInput, choiceLabel);
+                    choicesList.append(choiceItem);
+                });
+
+                questionDiv.append(questionHeader, choicesList);
+                questionsContainer.append(questionDiv);
+            });
+        }
+
+        // Function to calculate exam score
+        function calculateScore() {
+            var score = 0;
+            testQuestions.forEach(function (question) {
+                var selectedChoice = $("input[name='question_" + question.id + "']:checked").val();
+                if (selectedChoice === question.correctAnswer) {
+                    score++;
+                }
+            });
+            return score;
+        }
+
+        // Event handler for form submission
+        $("#testForm").submit(function (event) {
+            event.preventDefault();
+            var examScore = calculateScore();
+            $("#examScore").text("Your score: " + examScore + " out of " + testQuestions.length);
+        });
+
+        // Generate questions when the page loads
+        $(document).ready(function () {
+            generateQuestions();
+        });
+    </script>
+</body>
+</html>

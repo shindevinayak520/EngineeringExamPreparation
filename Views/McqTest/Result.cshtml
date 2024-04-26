@@ -1,23 +1,32 @@
-﻿@model TestResult
+﻿@model TestResultViewModel
 @{
   
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Result</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
-<body>
+<h2>Test Result</h2>
 
-    <div class="container mt-5">
-        <h2>Test Result</h2>
-        <p>Total Questions: @Model?.TotalQuestions</p>
-        <p>Correct Answers: @Model?.MarksObtained</p>
-    </div>
+<span>Score: @Model.Score</span>/<span>@Model.QuestionCount</span>
 
-</body>
+@foreach (var question in Model.Questions)
+{
+        <div class="result-preview">
+            <h4>@question.Text</h4>
+            <ol>
+            @foreach(var choice in question.testChoices)
+            {
+                <li class="@((choice.IsCorrect) ? "correct-choice" : ((choice.Selected) ? "select-choice" : ""))">
+                    @choice.Text
+                 @*<p class="@((choice.IsCorrect) ? "correct-choice" : ((choice.Selected) ? "select-choice" : ""))">@choice.Text</p>*@
+                    @if(choice.IsCorrect)
+                    {
+                        <span class="badge bg-success">Correct</span>
+                    }
+             </li>
+            
+
+            }
+            </ol>
+           
+        </div>
+}
 </html>
