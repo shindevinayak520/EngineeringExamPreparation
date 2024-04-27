@@ -1,0 +1,14 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.config
+.vs
+/.pdb
+/.dll
+/bin
+/Migrations
+/obj
+/Properties
+/bin/Debug
+/bin/Debug/net6.0/EngineeringExamPreparation.dll

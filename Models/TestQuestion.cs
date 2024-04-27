@@ -14,5 +14,7 @@ namespace EngineeringExamPreparation.Models
 
         [DefaultValue("Not-Submitted")]
         public string Status { get; set; }
+
+        public int? SelectedChoiceId { get; set; } // Nullable int to allow unselected state
     }
 }

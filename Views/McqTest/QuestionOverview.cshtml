@@ -5,13 +5,13 @@
 }
 <div class="container-fluid">
     <div class="row m-1">
-        <div class="col-auto bg-success border text-light ansShape" id="markForSavedCount">
+        <div class="col-auto bg-success border text-light ansShape" id="AnsweredCount">
              <p>0</p>
             </div>
             <div class="col-sm">
                Answered
             </div>
-        <div class="col-auto bg-danger border text-light notAns">
+        <div class="col-auto bg-danger border text-light notAns" id="NotAnsweredCount">
              <p>0</p>
             </div>
             <div class="col text-wrap">
@@ -19,13 +19,13 @@
             </div>
     </div>
     <div class="row m-1">
-        <div class="col-sm-auto border triangle notVisitedCount">
-            <p>@notVisited</p>
+        <div class="col-sm-auto border triangle notVisitedCount" id="NotVisitedCount">
+            <p>0</p>
             </div>
             <div class="col text-wrap">
                 Not Visited
             </div>
-        <div class="col-sm-auto bg-info border text-light polygon" id="markForReviewCount">
+        <div class="col-sm-auto bg-info border text-light polygon" id="MarkedForReviewCount">
              0
             </div>
         <div class="col text-wrap">
@@ -33,7 +33,7 @@
             </div>
     </div>
     <div class="row m-1">
-        <div class="col-sm-auto bg-primary bg-gradient border text-light ansMark">
+        <div class="col-sm-auto bg-primary bg-gradient border text-light ansMark" id="AnsweredAndMarkedForReviewCount">
             <p>0</p>
         </div>
         <div class="col text-wrap">
@@ -56,7 +56,7 @@
     <div class="row m-1 p-0 container-fluid">
     @for(int i=1; i<=Model.Count; i++)
     {
-                <div class=" btn col-2 square rounded bg-white bg-gradient border m-2 p-0 text-center question-number question-@i" data-question-id="question-@i" onclick="changeBackground(this);">
+                <div class=" btn col-2 square rounded bg-gradient border m-2 p-0 text-center question-number question-@i" data-question-id="question-@i" onclick="changeBackground(this);">
                 @i
             </div>
     }

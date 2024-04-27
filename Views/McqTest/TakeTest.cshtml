@@ -20,7 +20,8 @@
                                     <input type="hidden" name="questions[@Model.IndexOf(question)].Id" value="@question.Id" />
                                     <input type="hidden" name="questions[@Model.IndexOf(question)].TestChoices[@question.TestChoices.IndexOf(choice)].Text" value="@choice.Text" />
                                     <input type="hidden" name="questions[@Model.IndexOf(question)].TestChoices[@question.TestChoices.IndexOf(choice)].Id" value="@choice.Id" />
-                                    <input type="radio" name="questions[@Model.IndexOf(question)].TestChoices[@question.TestChoices.IndexOf(choice)].Selected" value="true" />
+                                    @*<input type="radio" name="questions[@Model.IndexOf(question)].TestChoices[@question.TestChoices.IndexOf(choice)].Selected" value="true" />*@
+                                    <input type="radio" name="questions[@Model.IndexOf(question)].SelectedChoiceId" value="@choice.Id" id="choice-@choice.Id" />
                                     <label>@choice.Text</label>
                                 </li>
                             }
@@ -32,7 +33,9 @@
                     </div>
                     i++;
                 }
-
+                <div>
+                    <button type="submit" class="btn btn-primary submit-test">End Test</button>
+                </div>
             </form>
         </div>
 
@@ -40,9 +43,7 @@
             @Html.Partial("QuestionOverview", Model)
         </div>
 
-        <div>
-            <button type="submit" class="btn btn-primary submit-test">End Test</button>
-        </div>
+
 
     </div>
 </div>

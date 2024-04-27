@@ -116,26 +116,24 @@ namespace EngineeringExamPreparation.Controllers
         // Method to prepare the test result view model
         private TestResultViewModel PrepareTestResultViewModel(List<TestQuestion> submittedTest)
         {
-            // You need to implement this method to calculate the test result and prepare the view model
-            // Here's a simplified example assuming TestQuestion has a property SelectedChoiceId
-            // You would replace it with your actual logic
-
             int score = 0;
             int questionCount = submittedTest.Count();
             List<TestResultQuestionViewModel> questions = new List<TestResultQuestionViewModel>();
 
             foreach (var question in submittedTest)
             {
-                var correctAnswer = dbcontext.TestChoices.Where(c=>c.TestQuestionId == question.Id && c.IsCorrect).Select(c=>c.Id).FirstOrDefault();
-             
+                var correctAnswerId = dbcontext.TestChoices
+                    .Where(c => c.TestQuestionId == question.Id && c.IsCorrect)
+                    .Select(c => c.Id)
+                    .FirstOrDefault();
+
                 // Example logic: If the selected choice is correct, increase the score
-                bool isCorrect = CheckIfCorrect(correctAnswer,question);
+                bool isCorrect = CheckIfCorrect(correctAnswerId, question);
                 if (isCorrect)
                 {
                     score++;
                 }
-
-                    question.TestChoices.Find(t => t.Id == correctAnswer).IsCorrect = true;
+                question.TestChoices.Find(t => t.Id == correctAnswerId).IsCorrect = true;
 
                 // Create view model for each question
                 TestResultQuestionViewModel questionViewModel = new TestResultQuestionViewModel
@@ -143,7 +141,7 @@ namespace EngineeringExamPreparation.Controllers
                     Text = question.Text,
                     SelectedChoiceText = GetSelectedChoiceText(question),
                     CorrectChoiceText = GetCorrectChoiceText(question),
-                    testChoices = question.TestChoices
+                    testChoices = question.TestChoices // Assuming TestChoices is a property in TestResultQuestionViewModel
                 };
 
                 questions.Add(questionViewModel);
@@ -157,27 +155,41 @@ namespace EngineeringExamPreparation.Controllers
             };
         }
 
-        // Example methods for getting selected and correct choice text
-        private bool CheckIfCorrect(int correctAnswer, TestQuestion question)
-        {
-                var selectedChoices = question.TestChoices.Where(t => t.Selected).Select(t=>t.Id).SingleOrDefault();
-                // Ensure there is exactly one selected choice for each question
 
-             return (selectedChoices == correctAnswer) ? true : false;
-            
+        // Example methods for getting selected and correct choice text
+        private bool CheckIfCorrect(int correctAnswerId, TestQuestion question)
+        {
+            int? selectedChoiceId = question.SelectedChoiceId;
+
+            // Ensure there is exactly one selected choice for each question
+            if (selectedChoiceId.HasValue && selectedChoiceId.Value == correctAnswerId)
+            {
+                return true;
+            }
+            return false;
         }
+
 
         private string GetSelectedChoiceText(TestQuestion question)
         {
-
-            return question.TestChoices.Where(c => c.Selected).Select(t => t.Text).SingleOrDefault(); // Replace with actual text
+            int? selectedChoiceId = question.SelectedChoiceId;
+            if (selectedChoiceId.HasValue)
+            {
+                var selectedChoice = question.TestChoices.FirstOrDefault(c => c.Id == selectedChoiceId);
+                return selectedChoice?.Text ?? "No choice selected";
+            }
+            return "No choice selected";
         }
 
         private string GetCorrectChoiceText(TestQuestion question)
         {
-            // Example logic to get the text of the correct choice
-            // You would replace it with your actual logic
-            return question?.TestChoices?.Where(c => c.IsCorrect)?.Select(c => c.Text).Single(); // Replace with actual text
+            int? correctChoiceId = question.TestChoices.FirstOrDefault(c => c.IsCorrect)?.Id;
+            if (correctChoiceId.HasValue)
+            {
+                var correctChoice = question.TestChoices.FirstOrDefault(c => c.Id == correctChoiceId);
+                return correctChoice?.Text ?? "No correct choice found";
+            }
+            return "No correct choice found";
         }
 
 

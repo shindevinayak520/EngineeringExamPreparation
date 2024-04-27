@@ -14,15 +14,20 @@
             <ol>
             @foreach(var choice in question.testChoices)
             {
-                <li class="@((choice.IsCorrect) ? "correct-choice" : ((choice.Selected) ? "select-choice" : ""))">
+              <li class="@((choice.Text == question.CorrectChoiceText) ? "correct-choice" : ((choice.Text == question.SelectedChoiceText) ? "select-choice" : ""))">
                     @choice.Text
                  @*<p class="@((choice.IsCorrect) ? "correct-choice" : ((choice.Selected) ? "select-choice" : ""))">@choice.Text</p>*@
                     @if(choice.IsCorrect)
                     {
                         <span class="badge bg-success">Correct</span>
                     }
+
+                    else if(choice.Text == question.SelectedChoiceText)
+                    {
+                        <span class="badge bg-info">Selected</span>
+                    }
              </li>
-            
+          
 
             }
             </ol>
