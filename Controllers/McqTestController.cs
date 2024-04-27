@@ -59,7 +59,8 @@ namespace EngineeringExamPreparation.Controllers
                 var testQuestion = new TestQuestion
                 {
                     Text = question.QuestionText,
-                    TestId = mcqTest.Id
+                    TestId = mcqTest.Id,
+                    Status = "Not-Visited"
                 };
 
                 dbcontext.TestQuestions.Add(testQuestion);
